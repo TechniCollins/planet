@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/new_order.css' %}">
+{% endblock css %}
+
+{% block body %}
+<body>
+    <br>
+    <div class="container">
+        <h6>Time</h6>
+        <div class="row">
+            <div class="col-8">
+                <input id="order-time" class="form-control mb-2 mr-sm-2" type="datetime-local" onfocusout="disableTimeChange()" disabled/>
+            </div>
+            <div class="col-4">
+                <button onClick="changeTime()" class="btn btn-primary mb-2">Change</button>
+            </div>
+        </div>
+    </div>
+
+    <hr class="title-hr"/>
+    <div class="container">
+        <div class="row">
+            <h6> Table </h6>
+        </div>
+    </div>
+
+    <div class="container tables-container">
+        <div class="row tables-row">
+            <div class="col-6">
+                <label class="radio-wide">
+                    <input type="radio" name="table" value="takeaway"/>
+                    <span class="text-center">takeaway</span>
+                </label>
+            </div>
+            <div class="col-6">
+                <label class="radio-wide">
+                    <input type="radio" name="table" value="delivery"/>
+                    <span class="text-center">delivery</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="row tables-row">
+
+        {% for i in tables %}
+            <div class="col-4">
+                <label class="radio">
+                  <input type="radio" name="table" value="{{ forloop.counter }}" />
+                  <span class="text-center">{{ forloop.counter }}</span>
+                </label>
+            </div>
+
+            {% if forloop.counter|divisibleby:3%}
+                </div> <!-- Close the previous row -->
+                <div class="row tables-row"> <!-- New row for every 3 tables -->
+            {% endif %}
+
+        {% endfor %}
+    </div>
+    <hr class="title-hr">
+    <div class="container d-flex justify-content-center">
+        <button onclick="selectTable()" class="btn btn-primary" >CONFIRM</button>
+    </div>
+</body>
+{% endblock body %}
+
+{% block javascript %}
+<script src="{% static 'scripts/new_order.js' %}"></script>
+{% endblock javascript %}

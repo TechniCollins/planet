@@ -1,0 +1,42 @@
+{% extends 'base.html' %} 
+{% block body %}
+{% load static %}
+<body>
+    <br>
+    <center><h5> Confirm Payment </h5></center>
+    <hr class="title-hr"/>
+
+    <div class="container">
+        <p><a href="{% url 'orders-page' %}"> Record later</a></p>
+        <div class="card border-0">
+            <div class="row">
+                <div class="col-4">
+                    <img class="payment-icon" src="{% static 'images/mpesa_logo.png' %}" class="img-fluid" alt="">
+                </div>
+                <div class="col-8">
+                    <input id="mpesa" type="number" class="form-control mb-2 mr-sm-2" value="0" />
+                </div>
+            </div>
+        </div>
+        <div class="card border-0">
+            <div class="row">
+                <div class="col-4">
+                    <img class="payment-icon" src="{% static 'images/money.png' %}" class="img-fluid" alt="">
+                </div>
+                <div class="col-8">
+                    <input id="cash" type="number" class="form-control mb-2 mr-sm-2" value="0" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br/>
+    <div class="container d-flex justify-content-center">
+        <button onclick="validatePayment()" id="cart" class="btn btn-primary">Confirm</button>
+    </div>
+</body>
+{% endblock body %}
+
+{% block javascript %}
+<script type="text/javascript" src="{% static 'scripts/payments.js' %}"></script>
+{% endblock javascript %}

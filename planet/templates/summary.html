@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% load id_escape %}
+
+{% block body %}
+
+{% for a in aggregates %}
+  {% idEscape a '_id' as id %}
+  <p>{{ id }} - {{ a.total }}</p>
+{% endfor %}
+
+{% endblock body %}

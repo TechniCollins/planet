@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load id_escape %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/orders.css' %}">
+{% endblock css %}
+
+{% block body %}
+<body>
+    <br>
+    <div class="container">
+        <div class="card border-0">
+            <center>
+                <div class="row">
+                    <div class="col-4">
+                        <a href="{% url 'new-order' %}" class="btn btn-success">Add Order</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="{% url 'summary' %}" class="btn btn-success">Summary</a>
+                    </div>
+                    <div class="col-4">
+                        <a href="#" class="btn btn-light">Expense</a>
+                    </div>
+                </div>
+            </center>
+        </div>
+    </div>
+
+    <hr class="title-hr"/>
+        <center><h5> Orders Waiting Payment </h5></center>
+    <hr class="title-hr"/>
+
+    <div class="container tables-container">
+        {% for order in orders %}
+            <div class="card border-0">
+                <div class="row">
+                    <div class="col-4">
+                        <img src="{{ order.image_url }}" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-8">
+                        <div class="card-block">
+                            <h5 class="card-title">{{ order.title }}</h5>
+                            <p class="card-text">Table: {{ order.table }}</p>
+                            <div class="row">
+                                <div class="col-8 nopadding">
+                                    <a href="#" class="btn"><h5>Ksh{{ order.total }}</h5></a>
+                                </div>
+                                <div class="col-4 nopadding">
+                                    {% idEscape order '_id' as id %}
+                                    <a href="{% url 'confirm-payment' %}?order_id={{id}}" class="btn btn-danger">Close</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+        {% endfor %}
+    </div>
+</body>
+{% endblock body %}

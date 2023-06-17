@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<body>
+    <br>
+    <center><h5> Menu </h5></center>
+
+    <div class="container tables-container">
+        <hr/ class="title-hr">
+        {% for i in items %}
+            <div class="card border-0">
+                <div class="row">
+                    <div class="col-4">
+                        <img src="{{ i.image_url }}" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-8">
+                        <div class="card-block">
+                            <h5 class="card-title">{{ i.name }} </h5>
+                            <p>{{ i.price }}</p>
+                            <div class="row">
+                                <div class="col-8 nopadding">
+                                </div>
+                                <div class="col-4 nopadding">
+                                    <a onclick="modifyOrder(this, 0);" item="{{ i.id }}" price="{{ i.price }}" class="item-btn"><i class="bi bi-dash-circle-fill"></i></a>
+                                    <span class="quantity" id="{{ i.id }}">0</span>
+                                    <a onclick="modifyOrder(this, 1);" item="{{ i.id }}" price="{{ i.price }}" class="item-btn"><i class="bi bi-plus-circle-fill"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+        {% endfor %}
+    </div>
+    <div class="container d-flex justify-content-center">
+        <button onclick="submitOrder(this)" id="cart" items="{}" class="btn btn-primary disabled">Confirm order - Ksh<b id="total">0.00</b></button>
+    </div>
+</body>
+{% endblock body %}
+
+{% block javascript %}
+    <script type="text/javascript" src="{% static 'scripts/items.js' %}"></script>
+{% endblock javascript %}

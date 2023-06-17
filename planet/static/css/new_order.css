@@ -1,0 +1,51 @@
+.tables-row{
+	margin: 8px;
+}
+
+label.radio, label.radio-wide {
+  display: inline-block;
+  width: 100%;
+}
+
+label.radio{
+	height: 105px;
+}
+
+label.radio-wide{
+	height: 40px;
+}
+
+label.radio, label.radio-wide {
+  cursor: pointer;
+}
+
+label.radio input, label.radio-wide input {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+label.radio span, label.radio-wide span {
+  width: 100%;
+/*  padding: 7px 14px;*/
+  display: inline-block;
+  border: 1px solid #1AE590;
+}
+
+label.radio span{
+	font-size: 60px;
+	height: 105px;
+}
+
+label.radio-wide span{
+	font-size: 20px;
+	height: 40px;
+	text-transform: uppercase;
+}
+
+label.radio input:checked + span, label.radio-wide input:checked + span {
+  border-color: #fff;
+  background-color: #1AE590;
+  color: #fff;
+}
+

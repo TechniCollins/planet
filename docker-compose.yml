@@ -1,29 +1,56 @@
 version: '3.9'
 
-services:
-  web:
-    build: .
-    env_file:
-      - .env
-    command: gunicorn budget_planner.wsgi:application --bind 0.0.0.0:8000 -t 1200 -w 3
-    ports:
-      - "8000:8000"
-    volumes:
-      - static:/application/staticfiles
-
-  nginx:
-    image: nginx:1.19.6-alpine
-    ports:
-      - 80:80
-      - 443:443
-    restart: "unless-stopped"
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
-      - static:/application/static/:ro
-    depends_on:
-      web:
-        condition: service_started
-
 volumes:
-  static:
-    driver: local
+  init-db:
+  data-db:
+
+services:
+  mongodb:
+    env_file:
+      .env
+    image: mongo
+    restart: always
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d
+      - ./data-db:/data/db
+    ports:
+      - 27017:27017
+
+
+
+  web:
+    env_file:
+      .env
+    image: planet_backend
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8000
+    build:
+      .
+    ports:
+      - 8000:8000
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+
+  # migration:
+  #   build: .
+  #   image: app
+  #   command: python manage.py migrate
+  #   volumes:
+  #     - .:/django_mongodb_docker
+  #   links:
+  #     - mongodb
+  #   depends_on:
+  #     - make_migrations
+
+  # make_migrations:
+  #   build: .
+  #   image: app
+  #   command: python manage.py makemigrations
+  #   volumes:
+  #     - .:/django_mongodb_docker
+  #   links:
+  #     - mongodb
+  #   depends_on:
+  #     - mongodb

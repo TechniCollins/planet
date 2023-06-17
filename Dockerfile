@@ -1,7 +1,5 @@
 FROM python:3.9.5-slim-buster
 
-MAINTAINER  TechniCollins "your_email@provider.com"
-
 ENV HOME /root
 ENV APP_HOME /application/
 ENV C_FORCE_ROOT=true
@@ -56,7 +54,7 @@ RUN rm requirements.txt
 
 
 # Copy code into Image
-ADD ./budget_planner/ $APP_HOME
+ADD ./planet/ $APP_HOME
 
 # collect static files
 RUN $APP_HOME/manage.py collectstatic

@@ -14,7 +14,8 @@ services:
 
   web:
     env_file:
-      .env
+      - .env
+      - .env.mongo
     image: planet_backend
     restart: always
     command: python manage.py runserver 0.0.0.0:8000

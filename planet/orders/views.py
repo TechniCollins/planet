@@ -7,10 +7,10 @@ import pymongo
 import datetime
 from bson import ObjectId
 
-connect_string = f'mongodb://{os.environ.get("DB_USERNAME")}:{os.environ.get("DB_PASS")}@{os.environ.get("DB_HOSTNAME")}/{os.environ.get("DB_NAME")}?retryWrites=true&w=majority'
+connect_string = f'mongodb://{os.environ.get("MONGO_INITDB_ROOT_USERNAME")}:{os.environ.get("MONGO_INITDB_ROOT_PASSWORD")}@{os.environ.get("DB_HOSTNAME")}/{os.environ.get("MONGO_INITDB_DATABASE")}?retryWrites=true&w=majority'
 my_client = pymongo.MongoClient(connect_string)
 
-dbname = my_client[os.environ.get("DB_NAME")]
+dbname = my_client[os.environ.get("MONGO_INITDB_DATABASE")]
 
 orders_collection = dbname["orders"]
 restaurant_collection = dbname["restaurant_info"]
